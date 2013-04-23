@@ -8,8 +8,14 @@
 # your option) any later version.
 
 from django.db import models
+from game.utils import randname
 from system import System
 
 class Asset(models.Model):
     system = models.ForeignKey(System)
     name = models.CharField(max_length="50")
+
+    @staticmethod
+    def generate():
+        for system in System.objects.all():
+            Asset.objects.create(system=system, name=randname())
