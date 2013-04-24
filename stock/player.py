@@ -10,10 +10,12 @@
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+from techno import Techno
 
 
 class Player(AbstractBaseUser):
     name = models.CharField(max_length=40, unique=True, db_index=True)
+    technos = models.ManyToManyField(Techno, related_name="possessed")
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
