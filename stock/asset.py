@@ -19,6 +19,6 @@ class Asset(models.Model):
 
     @staticmethod
     def generate():
-        neutral = Player.objects.get(name="Neutral")
+        neutral = Player.objects.get(name="Void")
         for system in System.objects.all():
             Asset.objects.create(system=system, name=randname(), owner=neutral)
