@@ -8,9 +8,17 @@
 # your option) any later version.
 
 from django.conf.urls import patterns, include, url
+from django.views.generic.detail import DetailView
 from law.general import SubscribeView
-
+from stock.models import Player
 
 urlpatterns = patterns('',
-    url(r'^subscribe/$', SubscribeView.as_view(), name='subscribe'),
+    url(r'^realm/(?P<pk>\d+)/$', 
+        DetailView.as_view(queryset=Player.objects.all(),
+                           template_name="realm.html"),
+        name='realm'),
+
+    url(r'^subscribe/$',
+        SubscribeView.as_view(),
+        name='subscribe'),
 )

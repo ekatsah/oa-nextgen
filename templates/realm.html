@@ -1,0 +1,42 @@
+{% with player=object %}
+
+<html>
+  <head>
+    <title>Realm of {{ player.name }}</title>
+    <style>
+      table {
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      td {
+        border-bottom: 1px black solid;
+        border-right: 1px black solid;
+        padding: 5px 15px 3px 15px;
+      }
+
+      td:first-child {
+        border-left: 1px black solid;
+      }
+
+      tr:first-child td {
+        border-top: 1px black solid;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Player</h1>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td>{{ player.id }}</td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>{{ player.name }}</td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+{% endwith %}
