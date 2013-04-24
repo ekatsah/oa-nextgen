@@ -14,6 +14,7 @@ class Command(BaseCommand):
     help = """Fill a DB with things"""
 
     def handle(self, *args, **options):
+        models.Player.generate()
         models.System.generate()
         models.Asset.generate()
         models.Planet.generate()

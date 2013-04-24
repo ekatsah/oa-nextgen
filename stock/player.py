@@ -13,8 +13,12 @@ from django.contrib.auth.models import AbstractBaseUser
 
 
 class Player(AbstractBaseUser):
-    name = models.EmailField(max_length=40, unique=True, db_index=True)
+    name = models.CharField(max_length=40, unique=True, db_index=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'name'
+
+    @staticmethod
+    def generate():
+        Player.objects.create(name="Void", is_active=True, is_admin=False)
