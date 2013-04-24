@@ -11,13 +11,18 @@ from django import forms
 from django.db import models
 from django.views.generic.edit import CreateView
 from command import Command
-from stock.models import Player
+from stock.models import Player, Techno
+
 
 class Subscribe(Command):
     name = models.CharField(max_length=40);
 
     def resolv(self):
-        Player.objects.create(name=self.name, is_active=True, is_admin=False)
+        player = Player.objects.create(name=self.name, is_active=True, 
+                                       is_admin=False)
+
+        for techno in Techno.get_publics():
+            player.technos.add(techno)
 
     def __str__(self):
         args = (Command.__str__(self), self.name)

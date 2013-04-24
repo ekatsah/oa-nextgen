@@ -52,3 +52,6 @@ class Techno(models.Model):
                 TechnoFeature.objects.create(techno=self, feature=feature,
                                              str_value=code, type=2)
 
+    @staticmethod
+    def get_publics():
+        return Techno.objects.filter(features__code="public")
