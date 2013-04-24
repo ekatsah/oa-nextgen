@@ -7,10 +7,4 @@
 # the Free Software Foundation, either version 3 of the License, or (at
 # your option) any later version.
 
-from django.conf.urls import patterns, include, url
-from law.general import SubscribeView
-
-
-urlpatterns = patterns('',
-    url(r'^subscribe/$', SubscribeView.as_view(), name='subscribe'),
-)
+from general import Subscribe

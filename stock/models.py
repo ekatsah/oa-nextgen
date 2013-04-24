@@ -9,4 +9,5 @@
 
 from asset import Asset
 from planet import Planet
+from player import Player
 from system import System

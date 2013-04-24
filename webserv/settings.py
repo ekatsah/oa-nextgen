@@ -1,13 +1,18 @@
 # Django settings for webserv project.
+from os import path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+PROJECT_PATH = "/".join(path.abspath(__file__).split("/")[:-2])
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
+
+AUTH_USER_MODEL = "stock.Player"
 
 DATABASES = {
     'default': {
@@ -108,9 +113,7 @@ ROOT_URLCONF = 'webserv.urls'
 WSGI_APPLICATION = 'webserv.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    PROJECT_PATH + '/templates',
 )
 
 INSTALLED_APPS = (
@@ -121,6 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'game',
+    'law',
     'stock',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

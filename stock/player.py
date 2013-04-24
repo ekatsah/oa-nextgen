@@ -7,10 +7,14 @@
 # the Free Software Foundation, either version 3 of the License, or (at
 # your option) any later version.
 
-from django.conf.urls import patterns, include, url
-from law.general import SubscribeView
+
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
 
 
-urlpatterns = patterns('',
-    url(r'^subscribe/$', SubscribeView.as_view(), name='subscribe'),
-)
+class Player(AbstractBaseUser):
+    name = models.EmailField(max_length=40, unique=True, db_index=True)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'name'
