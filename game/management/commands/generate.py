@@ -9,11 +9,14 @@
 
 from django.core.management.base import BaseCommand, CommandError
 import stock.models as models
+from game.feature import Feature
 
 class Command(BaseCommand):
     help = """Fill a DB with things"""
 
     def handle(self, *args, **options):
+        Feature.generate()
+        models.Techno.generate()
         models.Player.generate()
         models.System.generate()
         models.Asset.generate()
