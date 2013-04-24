@@ -14,8 +14,8 @@ from system import System
 from asset import Asset
 
 class Planet(models.Model):
-    system = models.ForeignKey(System)
-    asset = models.ForeignKey(Asset)
+    system = models.ForeignKey(System, related_name="planets")
+    asset = models.ForeignKey(Asset, related_name="planets")
     position = models.IntegerField()
     size = models.IntegerField()
     gravity = models.IntegerField()
