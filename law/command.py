@@ -14,6 +14,7 @@ from stock.models import Player
 class Command(models.Model):
     player = models.ForeignKey(Player, null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
+    week = models.IntegerField(default=0)
 #    source = models.IPAddressField(dea)
 
     class Meta:
@@ -21,8 +22,8 @@ class Command(models.Model):
 
     def __str__(self):
         if self.player:
-            args = (self.player.name, self.player.id, str(self.date))
+            args = (self.player.name, self.player.id, str(self.date), self.week)
         else:
-            args = ("None", -1, str(self.date))
+            args = ("None", -1, str(self.date), self.week)
 
-        return "RawCom, player %s (%d), at %s" % args 
+        return "RawCom, player %s (%d), at %s on week %d" % args 
