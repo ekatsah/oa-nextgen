@@ -9,17 +9,17 @@
         border-spacing: 0;
       }
 
-      td {
+      td, th {
         border-bottom: 1px black solid;
         border-right: 1px black solid;
         padding: 5px 15px 3px 15px;
       }
 
-      td:first-child {
+      td:first-child, th:first-child {
         border-left: 1px black solid;
       }
 
-      tr:first-child td {
+      tr:first-child td, tr:first-child th {
         border-top: 1px black solid;
       }
     </style>
@@ -45,12 +45,12 @@
         <th>Position</th>
         <th>Planet Count</th>
       </tr>
-      {% for asset in Player.assets.all %}
+      {% for asset in player.assets.all %}
       <tr>
-        <th>{{ asset.id }}</th>
-        <th>{{ asset.name }}</th>
-        <th>{{ asset.system.x }}-{{ asset.system.y }}</th>
-        <th>{{ asset.planets.count }}</th>
+        <td>{{ asset.id }}</td>
+        <td>{{ asset.name }}</td>
+        <td>{{ asset.system.x }}:{{ asset.system.y }}</td>
+        <td>{{ asset.planets.count }}</td>
       </tr>
       {% endfor %}
     </table>
