@@ -28,7 +28,7 @@ class TechnoFeature(models.Model):
 
 class Techno(models.Model):
     name = models.CharField(max_length=40, unique=True)
-    features = models.ManyToManyField(Feature, through=TechnoFeature)
+    raw_features = models.ManyToManyField(Feature, through=TechnoFeature)
     parent = models.ForeignKey('self', null=True)
 
     @staticmethod
@@ -51,6 +51,13 @@ class Techno(models.Model):
                 referer = Feature.objects.get(code=value)
                 TechnoFeature.objects.create(techno=self, feature=feature,
                                              str_value=code, type=2)
+
+    def features(self):
+        return [{"code": techfeat.feature.code,
+                 "id": techfeat.feature.id,
+                 "name": techfeat.feature.name,
+                 "value": techfeat.value}
+                for techfeat in TechnoFeature.objects.filter(techno=self)]
 
     @staticmethod
     def get_publics():

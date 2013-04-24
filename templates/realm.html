@@ -54,6 +54,41 @@
       </tr>
       {% endfor %}
     </table>
+
+    <h1>Technos</h1>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Parent</th>
+        <th>Feature</th>
+      </tr>
+      {% for techno in player.technos.all %}
+      <tr>
+        <td>{{ techno.id }}</td>
+        <td>{{ techno.name }}</td>
+        <td>
+          {% if techno.parent %}
+            {{ techno.parent.name }} #{{ techno.parent.id }}
+          {% else %}
+            &nbsp;
+          {% endif %}
+        </td>
+        <td>
+          <ul>
+            {% for feature in techno.features %}
+            <li>
+              {{ feature.code }}
+              {{ feature.name }}
+              {{ feature.value }}
+            </li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
   </body>
 </html>
 
