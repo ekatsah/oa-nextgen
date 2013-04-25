@@ -47,7 +47,6 @@ class Scheme(models.Model):
     pla_attack = models.IntegerField(default=0)
 
     def add_compo(self, techno, number):
-        techno = Techno.objects.get(name=techno)
         SchemeCompo.objects.create(scheme=self, techno=techno, number=number)
 
     def finalize(self):
