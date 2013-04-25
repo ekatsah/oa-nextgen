@@ -15,7 +15,8 @@ from techno import Techno
 
 class Player(AbstractBaseUser):
     name = models.CharField(max_length=40, unique=True, db_index=True)
-    technos = models.ManyToManyField(Techno, related_name="owner")
+    technos = models.ManyToManyField(Techno, related_name="owners")
+    schemes = models.ManyToManyField(Techno, related_name="possessors")
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

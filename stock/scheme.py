@@ -25,7 +25,7 @@ class SchemeMerch(models.Model):
 
 
 class Scheme(models.Model):
-    owner = models.ForeignKey(Player, related_name="schemes")
+    owner = models.ForeignKey(Player, related_name="created")
     compos = models.ManyToManyField(Techno, through=SchemeCompo, related_name="is_in")
     name = models.CharField(max_length=40)
     brand = models.CharField(max_length=40)
