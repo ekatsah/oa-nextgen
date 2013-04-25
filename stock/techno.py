@@ -59,6 +59,14 @@ class Techno(models.Model):
                  "value": techfeat.value()}
                 for techfeat in TechnoFeature.objects.filter(techno=self)]
 
+    def feature(self, code):
+        techfeat = TechnoFeature.objects.filter(techno=self,
+                                                feature__code=code)
+        if techfeat.count() > 0:
+            return techfeat[0].value()
+        else:
+            return 0
+
     @staticmethod
     def get_publics():
         return Techno.objects.filter(raw_features__code="public")
