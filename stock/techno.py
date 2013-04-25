@@ -30,12 +30,12 @@ class Techno(models.Model):
     scm = models.IntegerField(default=0)
     colo = models.BooleanField(default=False)
     schield = models.IntegerField(default=0)
-    type = models.CharField(max_length=40)
-    cost_prod = models.IntegerField(default=1)
+    type = models.CharField(max_length=40, default="")
+    cost_prod = models.IntegerField(default=0)
     cost_ore = models.IntegerField(default=0)
     cost_research = models.IntegerField(default=0)
     structural = models.IntegerField(default=0)
-    militarian = models.BooleanField(default=True)
+    militarian = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
 
     @staticmethod
