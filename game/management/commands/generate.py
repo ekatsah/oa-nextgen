@@ -18,6 +18,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        # Weapons generation
+        print "weapons generation"
+        W = models.Weapon.objects.create
+        laser1 = W(name="Laser I", spa_attack=1, shield_attack=1, velocity=10,
+                   scope=5, accuracy="20,15,10,5,0,0,0,0,0,0")
+        
+        bomb1 = W(name="Bombe I", pla_attack=3, velocity=5, scope=10,
+                  accuracy="0,0,0,0,0,0,0,0,0,0")
+
         # Technos generation
         print "technos generation"
         T = models.Techno.objects.create
@@ -34,15 +43,46 @@ class Command(BaseCommand):
                     cost_prod=5, cost_ore=1, structural=1, public=True)
 
         cargo1 = T(name="Cargo I", cargo=10, type="component",
-                   cost_prod=2, cost_ore=2, structural=2, parent=rea1)
+                   cost_prod=2, cost_ore=2, structural=2, parent=rea1,
+                   cost_research=100,)
 
         scan1 = T(name="Scanner I", syst_scan=1, type="component",
-                  cost_prod=10, cost_ore=5, structural=1, parent=rea1)
+                  cost_prod=10, cost_ore=5, structural=1, parent=rea1,
+                  cost_research=140)
+
+        las1 = T(name="Laser I", parent=rea1, weapon=laser1, type="component",
+                 cost_prod=2, cost_ore=2, structural=1, cost_research=100)
+
+        bom1 = T(name="Bomb I", parent=las1, weapon=bomb1, type="component",
+                 cost_prod=5, cost_ore=2, structural=1, cost_research=200)
 
         # Neutral player generation
         print "neutral player generation"
         neutral = models.Player.objects.create(name="Void", is_active=True, 
                                                is_admin=False)
+
+        # Scheme generation
+        print "schemes generation"
+        S = models.Scheme.objects.create
+        cargo = S(name="Minor Fret", brand="GalactaCorp", domain="public",
+                  owner=neutral)
+        cargo.add_compo(rea1, 1)
+        cargo.add_compo(cargo1, 2)
+        cargo.finalize()
+
+        fighter = S(name="Minor Fighter", brand="GalactaCorp", domain="public",
+                    owner=neutral)
+        fighter.add_compo(rea1, 1)
+        fighter.add_compo(shield1, 1)
+        fighter.add_compo(las1, 2)
+        fighter.finalize()
+
+        bomber = S(name="Minor Bomber", brand="GalactaCorp", domain="public",
+                   owner=neutral)
+        bomber.add_compo(rea1, 1)
+        bomber.add_compo(shield1, 1)
+        bomber.add_compo(bom1, 5)
+        bomber.finalize()
 
         # Systems generation
         print "systems generation"
