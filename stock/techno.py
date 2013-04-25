@@ -21,7 +21,7 @@ class Techno(models.Model):
     parent = models.ForeignKey('self', null=True)
     prod_merch = models.CharField(max_length=40)
     extract = models.IntegerField(default=0)
-    advance_extract = models.ImageField(default=0)
+    advance_extract = models.IntegerField(default=0)
     propeller = models.IntegerField(default=0)
     syst_scan = models.IntegerField(default=0)
     fleet_scan = models.IntegerField(default=0)
