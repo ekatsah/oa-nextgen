@@ -16,30 +16,30 @@ from scheme import Scheme
 class FleetCompo(models.Model):
     fleet = models.ForeignKey("Fleet")
     scheme = models.ForeignKey(Scheme)
-    race = models.ForeignKey(Feature)
+    race = models.CharField(max_length=40)
     number = models.IntegerField()
     dammage = models.IntegerField()
-
-
-class FleetFeature(ManyFeature):
-    fleet = models.ForeignKey("Fleet")
-
-
-class FleetCargo(ManyFeature):
-    fleet = models.ForeignKey("Fleet")
 
 
 class Fleet(models.Model):
     owner = models.ForeignKey(Player, related_name="fleets")
     name = models.CharField(max_length=40)
     compos = models.ManyToManyField(Scheme, through=FleetCompo)
-    pos_x = models.IntegerField()
-    pos_y = models.IntegerField()
-    dest_x = models.IntegerField()
-    dest_y = models.IntegerField()
-    features = models.ManyToManyField(Feature, through=FleetFeature)
-    cargos = models.ManyToManyField(Feature, through=FleetCargo,
-                                    related_name="in_fleets")
+    pos_x = models.IntegerField(default=0)
+    pos_y = models.IntegerField(default=0)
+    dest_x = models.IntegerField(default=0)
+    dest_y = models.IntegerField(default=0)
+    militarian = models.BooleanField(default=True)
+    cargo_capacity = models.IntegerField(default=0)
+    behaviour = models.CharField(max_length=40, default="neutral")
+    target = models.IntegerField(default=-1)
+    spa_attack = models.IntegerField(default=0)
+    pla_attack = models.IntegerField(default=0)
+    velocity = models.IntegerField(default=10)
+    syst_scan = models.IntegerField(default=0)
+    fleet_scan = models.IntegerField(default=0)
+    build_order = models.ForeignKey(Scheme, default=None, null=True)
+    size = models.CharField(max_length=40)
 
     @staticmethod
     def generate():

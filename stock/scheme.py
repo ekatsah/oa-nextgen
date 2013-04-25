@@ -19,23 +19,31 @@ class SchemeCompo(models.Model):
     number = models.IntegerField()
 
 
-class SchemeFeature(ManyFeature):
+class SchemeMerch(models.Model):
     scheme = models.ForeignKey("Scheme")
-
-
-class SchemeMerch(ManyFeature):
-    scheme = models.ForeignKey("Scheme")
+    merch = models.CharField(max_length=40)
+    amount = models.IntegerField(default=1)
 
 
 class Scheme(models.Model):
     owner = models.ForeignKey(Player, related_name="schemes")
     compos = models.ManyToManyField(Techno, through=SchemeCompo)
-    features = models.ManyToManyField(Feature, through=SchemeFeature)
-    merch = models.ManyToManyField(Feature, through=SchemeMerch,
-                                   related_name="schemes_contains")
     name = models.CharField(max_length=40)
     brand = models.CharField(max_length=40)
-    domain = models.ForeignKey(Feature, related_name="schemes_in_domain")
+    domain = models.CharField(max_length=40)
+    militarian = models.BooleanField(default=True)
+    size = models.IntegerField(default=1)
+    poc = models.IntegerField(default=1)
+    velocity = models.IntegerField(default=10)
+    cost_prod = models.IntegerField(default=1)
+    cost_ore = models.IntegerField(default=1)
+    cargo = models.IntegerField(default=0)
+    syst_scan = models.IntegerField(default=0)
+    fleet_scan = models.IntegerField(default=0)
+    scm = models.IntegerField(default=0)
+    colo = models.BooleanField(default=False)
+    spa_attack = models.IntegerField(default=0)
+    pla_attack = models.IntegerField(default=0)
     
     @staticmethod
     def generate():

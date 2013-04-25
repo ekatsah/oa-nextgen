@@ -8,54 +8,46 @@
 # your option) any later version.
 
 from django.db import models
-from game.feature import Feature, ManyFeature
 
 
-class TechnoFeature(ManyFeature):
-    techno = models.ForeignKey('Techno')
+class TechnoMerch(models.Model):
+    techno = models.ForeignKey("Techno")
+    merch = models.CharField(max_length=40)
+    amount = models.IntegerField(default=1)
 
 
 class Techno(models.Model):
     name = models.CharField(max_length=40, unique=True)
-    raw_features = models.ManyToManyField(Feature, through=TechnoFeature)
     parent = models.ForeignKey('self', null=True)
+    prod_merch = models.CharField(max_length=40)
+    extract = models.IntegerField(default=0)
+    advance_extract = models.ImageField(default=0)
+    propeller = models.IntegerField(default=0)
+    syst_scan = models.IntegerField(default=0)
+    fleet_scan = models.IntegerField(default=0)
+    cargo = models.IntegerField(default=0)
+    yot = models.IntegerField(default=0)
+    scm = models.IntegerField(default=0)
+    colo = models.BooleanField(default=False)
+    schield = models.IntegerField(default=0)
+    type = models.CharField(max_length=40)
+    cost_prod = models.IntegerField(default=1)
+    cost_ore = models.IntegerField(default=0)
+    cost_research = models.IntegerField(default=0)
+    structural = models.IntegerField(default=0)
+    militarian = models.BooleanField(default=True)
+    public = models.BooleanField(default=False)
 
     @staticmethod
     def generate():
-        mine1 = Techno.objects.create(name="Mine I")
-        mine1.update_feature(extract=1, type="building", cost_prod=10,
-                             cost_ore=1, structural=10, public=1)
+        T = Techno.objects.create
+        mine1 = T(name="Mine I", extract=1, type="building", cost_prod=10, 
+                  cost_ore=1, structural=10, public=1)
 
-        mine2 = Techno.objects.create(name="Mine 2", parent=mine1)
-        mine2.update_feature(extract=2, type="building", cost_prod=20,
-                             cost_ore=1, structural=15, cost_research=100)
-
-    def update_feature(self, **kwargs):
-        for code, value in kwargs.iteritems():
-            feature = Feature.objects.get(code=code)
-            if type(value) == int:
-                TechnoFeature.objects.create(techno=self, feature=feature,
-                                             int_value=value, type=1)
-            else:
-                referer = Feature.objects.get(code=value)
-                TechnoFeature.objects.create(techno=self, feature=feature,
-                                             str_value=code, type=2)
-
-    def features(self):
-        return [{"code": techfeat.feature.code,
-                 "id": techfeat.feature.id,
-                 "name": techfeat.feature.name,
-                 "value": techfeat.value()}
-                for techfeat in TechnoFeature.objects.filter(techno=self)]
-
-    def feature(self, code):
-        techfeat = TechnoFeature.objects.filter(techno=self,
-                                                feature__code=code)
-        if techfeat.count() > 0:
-            return techfeat[0].value()
-        else:
-            return 0
+        mine2 = T(name="Mine 2", parent=mine1, extract=2, type="building", 
+                  cost_prod=20, cost_ore=1, structural=15, cost_research=100)
 
     @staticmethod
     def get_publics():
-        return Techno.objects.filter(raw_features__code="public")
+        return Techno.objects.filter(public=True)
+
