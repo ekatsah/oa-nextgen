@@ -8,7 +8,7 @@
 # your option) any later version.
 
 from django.db import models
-from game.config import GALAXY_BOUND
+from game.config import GALAXY_BOUND, SYSTEM_QUANTITY
 from random import randint
 
 class System(models.Model):
@@ -17,7 +17,7 @@ class System(models.Model):
 
     @staticmethod
     def generate():
-        for _ in xrange(20):
+        for _ in xrange(SYSTEM_QUANTITY):
             x, y = 0, 0
             while System.objects.filter(x=x, y=y).count() > 0:
                 x = randint(-GALAXY_BOUND, GALAXY_BOUND)

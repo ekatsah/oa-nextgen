@@ -8,5 +8,6 @@
 # your option) any later version.
 
 GALAXY_BOUND = 20
+SYSTEM_QUANTITY = 5
 PLANET_MIN = 3
 PLANET_MAX = 20
