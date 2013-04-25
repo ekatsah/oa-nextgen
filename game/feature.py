@@ -199,3 +199,13 @@ def list_of_all_features():
     F(code='centaure', name='centaures', type='points')
     F(code='tech_point', name='points technologiques', type='points')
     F(code='spe_point', name='points spéciaux', type='points')
+
+def FeatureFactory(*features):
+    def format(self):
+        def need_trans(field):
+            return not isinstance(field, models.IntegerField)
+        return [{"code": feature, 
+                 "value": getattr(self, feature),
+                 "trans": need_trans(getattr(self, feature))}
+                for feature in features]
+    return format
