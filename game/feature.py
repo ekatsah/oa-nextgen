@@ -8,6 +8,7 @@
 # your option) any later version.
 
 from django.db import models
+from models.fields import NOT_PROVIDED
 
 
 def list_of_all_features():
@@ -200,12 +201,28 @@ def list_of_all_features():
     F(code='tech_point', name='points technologiques', type='points')
     F(code='spe_point', name='points spéciaux', type='points')
 
+
 def FeatureFactory(*features):
+    """ this function generate a way to extract a list of used features
+        for an object. List as [{code, value, need_trans}...]
+        need_trans : need to translate the value too, not only the code
+        the list contains only code:value that are different from defaults"""
+
     def format(self):
-        def need_trans(field):
-            return type(field) == unicode 
-        return [{"code": feature, 
-                 "value": getattr(self, feature),
-                 "trans": need_trans(getattr(self, feature))}
-                for feature in features]
+        # does the value need translation? true if text, false if bool or int
+        need_trans = lambda field: type(field) == unicode
+
+        # get all the field's default, map field_name:default
+        default = {f.name: f.default for f in self.__class_._meta.fields
+                   if f != NOT_PROVIDED}
+
+        # helper to format the dict and cache value
+        item = lambda field, value: {"code": feature, "value": value, 
+                                     "trans": need_trans(value)}
+
+        # generate the list. little trick, default can't be -1337.
+        return [item(feature, getattr(self, feature))
+                for feature in features
+                if getattr(self, feature) != default.get(feature, -1337)]
+
     return format
