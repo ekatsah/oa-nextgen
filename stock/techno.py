@@ -8,6 +8,7 @@
 # your option) any later version.
 
 from django.db import models
+from weapon import Weapon
 
 
 class TechnoMerch(models.Model):
@@ -37,6 +38,7 @@ class Techno(models.Model):
     structural = models.IntegerField(default=0)
     militarian = models.BooleanField(default=False)
     public = models.BooleanField(default=False)
+    weapon = models.ForeignKey(Weapon, null=True, default=None, related_name="used_by")
 
     @staticmethod
     def get_publics():

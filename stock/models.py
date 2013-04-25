@@ -14,3 +14,4 @@ from player import Player
 from scheme import Scheme
 from system import System
 from techno import Techno
+from weapon import Weapon
