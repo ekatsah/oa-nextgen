@@ -14,7 +14,7 @@ from player import Player
 
 class Asset(models.Model):
     system = models.ForeignKey(System, related_name="assets")
-    name = models.CharField(max_length="50")
+    name = models.CharField(max_length="40")
     owner = models.ForeignKey(Player, related_name="assets")
 
     @staticmethod
