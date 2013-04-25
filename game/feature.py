@@ -206,3 +206,21 @@ class Feature(models.Model):
         F(code='centaure', name='centaures', type='points')
         F(code='tech_point', name='points technologiques', type='points')
         F(code='spe_point', name='points spéciaux', type='points')
+
+
+class ManyFeature(models.Model):
+    feature = models.ForeignKey(Feature)
+    int_value = models.IntegerField(null=True)
+    str_value = models.CharField(max_length=40)
+    # 1 for int, 2 for code
+    type = models.IntegerField(default=1)
+
+    class Meta:
+        abstract = True
+
+    def value(self):
+        if self.type == 1:
+            return self.int_value
+        else:
+            return self.str_value
+
