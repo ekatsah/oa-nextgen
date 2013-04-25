@@ -8,7 +8,6 @@
 # your option) any later version.
 
 from django.db import models
-from game.feature import Feature, ManyFeature
 from player import Player
 from techno import Techno
 
