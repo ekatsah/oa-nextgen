@@ -203,7 +203,7 @@ def list_of_all_features():
 def FeatureFactory(*features):
     def format(self):
         def need_trans(field):
-            return not isinstance(field, models.IntegerField)
+            return type(field) == unicode 
         return [{"code": feature, 
                  "value": getattr(self, feature),
                  "trans": need_trans(getattr(self, feature))}
