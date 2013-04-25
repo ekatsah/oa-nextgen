@@ -8,7 +8,9 @@
 # your option) any later version.
 
 from asset import Asset
+from fleet import Fleet
 from planet import Planet
 from player import Player
+from scheme import Scheme
 from system import System
 from techno import Techno
