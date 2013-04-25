@@ -8,22 +8,11 @@
 # your option) any later version.
 
 from django.db import models
-from game.feature import Feature
+from game.feature import Feature, ManyFeature
 
 
-class TechnoFeature(models.Model):
+class TechnoFeature(ManyFeature):
     techno = models.ForeignKey('Techno')
-    feature = models.ForeignKey(Feature)
-    int_value = models.IntegerField(null=True)
-    str_value = models.CharField(max_length=40)
-    # 1 for int, 2 for code
-    type = models.IntegerField(default=1)
-
-    def value(self):
-        if self.type == 1:
-            return self.int_value
-        else:
-            return self.str_value
 
 
 class Techno(models.Model):
