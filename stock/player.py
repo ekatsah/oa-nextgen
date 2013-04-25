@@ -21,7 +21,3 @@ class Player(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'name'
-
-    @staticmethod
-    def generate():
-        Player.objects.create(name="Void", is_active=True, is_admin=False)

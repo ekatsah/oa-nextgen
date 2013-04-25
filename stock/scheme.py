@@ -30,6 +30,8 @@ class Scheme(models.Model):
     name = models.CharField(max_length=40)
     brand = models.CharField(max_length=40)
     domain = models.CharField(max_length=40)
+
+    # Features
     militarian = models.BooleanField(default=False)
     size = models.IntegerField(default=0)
     poc = models.IntegerField(default=0)
@@ -43,7 +45,10 @@ class Scheme(models.Model):
     colo = models.BooleanField(default=False)
     spa_attack = models.IntegerField(default=0)
     pla_attack = models.IntegerField(default=0)
-    
-    @staticmethod
-    def generate():
+
+    def add_compo(self, techno, number):
+        techno = Techno.objects.get(name=techno)
+        SchemeCompo.objects.create(scheme=self, techno=techno, number=number)
+
+    def finalize(self):
         pass

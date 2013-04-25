@@ -7,9 +7,7 @@
 # the Free Software Foundation, either version 3 of the License, or (at
 # your option) any later version.
 
-from game.config import PLANET_MIN, PLANET_MAX
 from django.db import models
-from random import randint
 from system import System
 from asset import Asset
 
@@ -26,18 +24,3 @@ class Planet(models.Model):
     stability = models.IntegerField(default=-1)
     ore = models.IntegerField(default=-1)
     revolt = models.BooleanField(default=False)
-
-    @staticmethod
-    def generate():
-        for asset in Asset.objects.all():
-            planet_count = randint(PLANET_MIN, PLANET_MAX)
-            for position in map(lambda p: p + 1, xrange(planet_count)):
-                size = randint(1, 4)
-                Planet.objects.create(system=asset.system, asset=asset,
-                                      position=position, size=size,
-                                      gravity=randint(0, 100),
-                                      radiation=randint(0, 100),
-                                      structure=size * 20 + randint(0, 30),
-                                      terra=0, taxe=2, stability=100,
-                                      ore=randint(0, 6),
-                                      revolt=False)

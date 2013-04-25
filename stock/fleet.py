@@ -29,6 +29,8 @@ class Fleet(models.Model):
     pos_y = models.IntegerField(default=GALAXY_BOUND + 10)
     dest_x = models.IntegerField(default=GALAXY_BOUND + 10)
     dest_y = models.IntegerField(default=GALAXY_BOUND + 10)
+
+    # Features
     militarian = models.BooleanField(default=False)
     cargo_capacity = models.IntegerField(default=0)
     behaviour = models.CharField(max_length=40, default="neutral")
@@ -40,7 +42,3 @@ class Fleet(models.Model):
     fleet_scan = models.IntegerField(default=0)
     build_order = models.ForeignKey(Scheme, default=None, null=True, related_name="built_by")
     size = models.CharField(max_length=40)
-
-    @staticmethod
-    def generate():
-        pass

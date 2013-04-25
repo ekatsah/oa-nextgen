@@ -8,7 +8,6 @@
 # your option) any later version.
 
 from django.db import models
-from game.utils import randname
 from system import System
 from player import Player
 
@@ -16,9 +15,3 @@ class Asset(models.Model):
     system = models.ForeignKey(System, related_name="assets")
     name = models.CharField(max_length="40")
     owner = models.ForeignKey(Player, related_name="assets")
-
-    @staticmethod
-    def generate():
-        neutral = Player.objects.get(name="Void")
-        for system in System.objects.all():
-            Asset.objects.create(system=system, name=randname(), owner=neutral)
