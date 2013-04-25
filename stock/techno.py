@@ -56,7 +56,7 @@ class Techno(models.Model):
         return [{"code": techfeat.feature.code,
                  "id": techfeat.feature.id,
                  "name": techfeat.feature.name,
-                 "value": techfeat.value}
+                 "value": techfeat.value()}
                 for techfeat in TechnoFeature.objects.filter(techno=self)]
 
     @staticmethod
