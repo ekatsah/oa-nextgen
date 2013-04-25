@@ -12,7 +12,9 @@ from random import choice, randint
 def randname():
     letters1 = "aaeeiioouuy"
     letters2 = "zrrttppqsssddfghjkllmmwxccvbbnn"
-    size = randint(3, 6)
-    components = [(choice(letters1), choice(letters2)) for _ in xrange(size)]
-    word = reduce(lambda a, b: a[0] + a[1] + b[0] + b[1], components)
+    size = randint(3, 5)
+    components = [choice(letters1) + choice(letters2) for _ in xrange(size)]
+    word = reduce(lambda a, b: a + b, components)
+    if randint(0, 2) != 2:
+        word = choice(letters2) + word
     return word.capitalize()
