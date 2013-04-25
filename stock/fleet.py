@@ -24,7 +24,7 @@ class FleetCompo(models.Model):
 class Fleet(models.Model):
     owner = models.ForeignKey(Player, related_name="fleets")
     name = models.CharField(max_length=40)
-    compos = models.ManyToManyField(Scheme, through=FleetCompo)
+    compos = models.ManyToManyField(Scheme, through=FleetCompo, related_name="is_in")
     pos_x = models.IntegerField(default=GALAXY_BOUND + 10)
     pos_y = models.IntegerField(default=GALAXY_BOUND + 10)
     dest_x = models.IntegerField(default=GALAXY_BOUND + 10)
@@ -38,7 +38,7 @@ class Fleet(models.Model):
     velocity = models.IntegerField(default=-1)
     syst_scan = models.IntegerField(default=0)
     fleet_scan = models.IntegerField(default=0)
-    build_order = models.ForeignKey(Scheme, default=None, null=True)
+    build_order = models.ForeignKey(Scheme, default=None, null=True, related_name="built_by")
     size = models.CharField(max_length=40)
 
     @staticmethod
