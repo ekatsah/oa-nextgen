@@ -61,4 +61,4 @@ class Techno(models.Model):
 
     @staticmethod
     def get_publics():
-        return Techno.objects.filter(features__code="public")
+        return Techno.objects.filter(raw_features__code="public")
