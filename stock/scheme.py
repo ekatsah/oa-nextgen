@@ -61,7 +61,14 @@ class Scheme(models.Model):
         return SchemeCompo.objects.filter(scheme=self)
 
     def add_compo(self, techno, number):
-        SchemeCompo.objects.create(scheme=self, techno=techno, number=number)
+        query = self.compos().filter(techno=techno)
+        if query.count() > 0:
+            schemecompo = query[0]
+            schemecompo.number += number
+            schemecompo.save()
+        else:
+            SchemeCompo.objects.create(scheme=self, techno=techno,
+                                       number=number)
 
     def finalize(self):
         structure, engine = 0, 0
