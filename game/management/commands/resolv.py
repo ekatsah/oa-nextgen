@@ -17,7 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         week = int(args[0])
 
-        for order_type in ["Subscribe"]:
+        for order_type in ["MoveFleet", "Subscribe"]:
             for order in getattr(models, order_type).objects.filter(week=week):
                 print str(order)
                 order.resolv()
