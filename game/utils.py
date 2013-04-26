@@ -19,11 +19,21 @@ def randname():
         word = choice(letters2) + word
     return word.capitalize()
 
-def struct2size(point):
+def struct2size(points):
     #        1  2   3   4   5    6    7    8     9 -> 10
     sizes = [2, 5, 10, 20, 50, 100, 250, 500, 1000]
     for size, struct in enumerate(sizes):
-        if point <= struct:
+        if points <= struct:
+            return size + 1
+    else:
+        return 10
+
+def poc2size(points, spa_attack, pla_attack):
+#             1   2    3    4     5     6      7      8       9 -> 10
+    sizes = [10, 50, 100, 330, 1500, 5000, 10000, 50000, 100000]
+    points = points * 0.6 + spa_attack * 0.4 + pla_attack * 0.1
+    for size, struct in enumerate(sizes):
+        if points <= struct:
             return size + 1
     else:
         return 10
