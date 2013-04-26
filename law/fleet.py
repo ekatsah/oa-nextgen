@@ -21,11 +21,12 @@ class MoveFleet(Command):
     behaviour = models.CharField(max_length=40)
 
     def resolv(self):
-        fleet.dest_x = self.dest_x
-        fleet.dest_y = self.dest_y
-        fleet.behaviour = self.behaviour
+        self.fleet.dest_x = self.dest_x
+        self.fleet.dest_y = self.dest_y
+        self.fleet.behaviour = self.behaviour
+        self.fleet.save()
 
     def __str__(self):
         args = (Command.__str__(self), self.fleet.name, self.dest_x, 
-                self.dest_y, self.beehaviour)
+                self.dest_y, self.behaviour)
         return "MoveFleet: base(%s), fleet = '%s' -> (%d:%d) in %s" % args
