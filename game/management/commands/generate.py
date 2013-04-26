@@ -61,8 +61,7 @@ class Command(BaseCommand):
 
         # Neutral player generation
         print "neutral player generation"
-        neutral = models.Player.objects.create(name="Void", is_active=True, 
-                                               is_admin=False)
+        neutral = models.Player.objects.create(name="Void")
 
         # Scheme generation
         print "schemes generation"
