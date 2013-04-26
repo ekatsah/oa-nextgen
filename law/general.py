@@ -9,7 +9,6 @@
 
 from django import forms
 from django.db import models
-from django.views.generic.edit import CreateView
 from stock.models import Player, Techno, Scheme, Fleet
 from command import Command
 
@@ -18,7 +17,7 @@ class Subscribe(Command):
     name = models.CharField(max_length=40)
     race = models.CharField(max_length=40)
     domain = models.CharField(max_length=40)
-
+    
     def resolv(self):
         neutral = Player.objects.get(name="Void")
         if neutral.assets.count() == 0:
@@ -61,9 +60,3 @@ class Subscribe(Command):
     def __str__(self):
         args = (Command.__str__(self), self.name)
         return "Subscribe: base(%s), name = '%s'" % args
-
-
-class SubscribeView(CreateView):
-    model = Subscribe
-    template_name = 'subscribe.html'
-    success_url = '/subscribe/'

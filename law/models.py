@@ -8,3 +8,4 @@
 # your option) any later version.
 
 from general import Subscribe
+from fleet import MoveFleet

@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <title>All orders</title>
+  </head>
+  <body>
+    <h1>Awaiting orders, captain</h1>
+    <ul>
+    {% for order in orders %}
+      <li><a href="{% url "one_order" order %}">{{ order }}</a></li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
