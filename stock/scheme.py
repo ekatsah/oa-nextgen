@@ -8,6 +8,8 @@
 # your option) any later version.
 
 from django.db import models
+from game.feature import FeatureFactory
+from game.utils import struct2size
 from player import Player
 from techno import Techno
 
@@ -26,7 +28,6 @@ class SchemeMerch(models.Model):
 
 class Scheme(models.Model):
     owner = models.ForeignKey(Player, related_name="created")
-    compos = models.ManyToManyField(Techno, through=SchemeCompo, related_name="is_in")
     name = models.CharField(max_length=40)
     brand = models.CharField(max_length=40)
     domain = models.CharField(max_length=40)
@@ -45,6 +46,19 @@ class Scheme(models.Model):
     colo = models.BooleanField(default=False)
     spa_attack = models.IntegerField(default=0)
     pla_attack = models.IntegerField(default=0)
+    shield = models.IntegerField(default=0)
+
+    features = FeatureFactory("size", "poc", "velocity", "spa_attack",
+                              "pla_attack", "syst_scan", "fleet_scan",
+                              "cargo", "scm", "colo", "shield", "cost_prod", 
+                              "cost_ore", "militarian")
+
+    @staticmethod
+    def get_publics():
+        return Scheme.objects.filter(domain="public")
+
+    def compos(self):
+        return SchemeCompo.objects.filter(scheme=self)
 
     def add_compo(self, techno, number):
         SchemeCompo.objects.create(scheme=self, techno=techno, number=number)

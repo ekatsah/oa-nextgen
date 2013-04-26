@@ -9,6 +9,7 @@
 
 from django.db import models
 from game.config import GALAXY_BOUND
+from game.feature import FeatureFactory
 from player import Player
 from scheme import Scheme
 
@@ -42,3 +43,8 @@ class Fleet(models.Model):
     fleet_scan = models.IntegerField(default=0)
     build_order = models.ForeignKey(Scheme, default=None, null=True, related_name="built_by")
     size = models.CharField(max_length=40)
+
+    features = FeatureFactory("size", "poc", "velocity", "spa_attack",
+                              "pla_attack", "syst_scan", "fleet_scan",
+                              "cargo", "scm", "colo", "shield", "public",
+                              "cost_prod", "cost_ore", "militarian")
