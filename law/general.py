@@ -10,8 +10,8 @@
 from django import forms
 from django.db import models
 from django.views.generic.edit import CreateView
+from stock.models import Player, Techno, Scheme
 from command import Command
-from stock.models import Player, Techno
 
 
 class Subscribe(Command):
@@ -33,6 +33,10 @@ class Subscribe(Command):
         # also, all the public technology
         for techno in Techno.get_publics():
             player.technos.add(techno)
+
+        # also, all the public scheme
+        for scheme in Scheme.get_publics():
+            player.schemes.add(scheme)
 
     def __str__(self):
         args = (Command.__str__(self), self.name)
