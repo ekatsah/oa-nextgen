@@ -55,6 +55,39 @@
       {% endfor %}
     </table>
 
+    <h1>Schemes</h1>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Domain</th>
+        <th>Compo</th>
+        <th>Feature</th>
+      </tr>
+      {% for scheme in player.schemes.all %}
+      <tr>
+        <td>{{ scheme.id }}</td>
+        <td>{{ scheme.name }}</td>
+        <td>{{ scheme.brand }}</td>
+        <td>{{ scheme.domain }}</td>
+        <td>
+          <ul>
+            {% for compo in scheme.compos %}
+            <li>{{ compo.techno.name }}: {{ compo.number }}</li>
+            {% endfor %}
+        </td>
+        <td>
+          <ul>
+            {% for feature in scheme.features %}
+            <li>{{ feature.code }}: {{ feature.value }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
     <h1>Technos</h1>
     <table>
       <tr>
@@ -77,11 +110,7 @@
         <td>
           <ul>
             {% for feature in techno.features %}
-            <li>
-              {{ feature.code }}
-              {{ feature.name }}
-              {{ feature.value }}
-            </li>
+            <li>{{ feature.code }} {{ feature.value }}</li>
             {% endfor %}
           </ul>
         </td>
