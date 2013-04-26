@@ -11,6 +11,13 @@ from django.db import models
 from system import System
 from asset import Asset
 
+class PlanetPop(models.Model):
+    planet = models.ForeignKey("Planet", related_name="pops")
+    race = models.CharField(max_length=40)
+    pop = models.IntegerField(default=20)
+    popmax = models.IntegerField()
+    growth = models.IntegerField()
+
 class Planet(models.Model):
     system = models.ForeignKey(System, related_name="planets")
     asset = models.ForeignKey(Asset, related_name="planets")
@@ -24,3 +31,6 @@ class Planet(models.Model):
     stability = models.IntegerField(default=-1)
     ore = models.IntegerField(default=-1)
     revolt = models.BooleanField(default=False)
+
+    def pops(self):
+        return PlanetPop.objects.filter(planet=self)
