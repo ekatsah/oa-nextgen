@@ -13,6 +13,7 @@ from game.config import *
 from game.utils import randname
 import stock.models as models
 
+
 class Command(BaseCommand):
     help = """Fill a DB with things"""
 
@@ -51,10 +52,12 @@ class Command(BaseCommand):
                   cost_research=140)
 
         las1 = T(name="Laser I", parent=rea1, weapon=laser1, type="component",
-                 cost_prod=2, cost_ore=2, structural=1, cost_research=100)
+                 cost_prod=2, cost_ore=2, structural=1, cost_research=100,
+                 militarian=True)
 
         bom1 = T(name="Bomb I", parent=las1, weapon=bomb1, type="component",
-                 cost_prod=5, cost_ore=2, structural=1, cost_research=200)
+                 cost_prod=5, cost_ore=2, structural=1, cost_research=200,
+                 militarian=True)
 
         # Neutral player generation
         print "neutral player generation"
