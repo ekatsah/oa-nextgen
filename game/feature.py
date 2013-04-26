@@ -8,7 +8,6 @@
 # your option) any later version.
 
 from django.db import models
-from models.fields import NOT_PROVIDED
 
 
 def list_of_all_features():
@@ -213,16 +212,15 @@ def FeatureFactory(*features):
         need_trans = lambda field: type(field) == unicode
 
         # get all the field's default, map field_name:default
-        default = {f.name: f.default for f in self.__class_._meta.fields
-                   if f != NOT_PROVIDED}
+        default = {f.name: f.default for f in self.__class__._meta.fields
+                   if f.default != models.NOT_PROVIDED}
 
         # helper to format the dict and cache value
-        item = lambda field, value: {"code": feature, "value": value, 
+        item = lambda field, value: {"code": field, "value": value, 
                                      "trans": need_trans(value)}
 
-        # generate the list. little trick, default can't be -1337.
-        return [item(feature, getattr(self, feature))
-                for feature in features
-                if getattr(self, feature) != default.get(feature, -1337)]
+        # generate the list
+        return [item(feat, getattr(self, feat)) for feat in features
+                if feat not in default or getattr(self, feat) != default[feat]]
 
     return format
