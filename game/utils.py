@@ -18,3 +18,12 @@ def randname():
     if randint(0, 2) != 2:
         word = choice(letters2) + word
     return word.capitalize()
+
+def struct2size(point):
+    #        1  2   3   4   5    6    7    8     9 -> 10
+    sizes = [2, 5, 10, 20, 50, 100, 250, 500, 1000]
+    for size, struct in enumerate(sizes):
+        if point <= struct:
+            return size + 1
+    else:
+        return 10
