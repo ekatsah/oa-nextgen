@@ -64,4 +64,36 @@ class Scheme(models.Model):
         SchemeCompo.objects.create(scheme=self, techno=techno, number=number)
 
     def finalize(self):
-        pass
+        structure, engine = 0, 0
+        self.cargo, self.militarian, self.cost_prod = 0, False, 0
+        self.cost_ore, self.syst_scan, self.fleet_scan = 0, 0, 0
+        self.colo, self.spa_attack, self.pla_attack = False, 0, 0
+        self.shield, self.scm = 0, 0
+
+        for tech, number in self.compos().values_list("techno", "number"):
+            tech = Techno.objects.get(id=tech)
+
+            if tech.militarian == True:
+                self.militarian = True
+
+            if tech.colo == True:
+                self.colo = True
+
+            self.cargo += tech.cargo * number
+            self.cost_prod += tech.cost_prod * number
+            self.cost_ore += tech.cost_ore * number
+            self.shield += tech.shield * number
+            self.syst_scan = max(self.syst_scan, tech.syst_scan)
+            self.fleet_scan = max(self.fleet_scan, tech.fleet_scan)
+            self.scm = max(self.scm, tech.scm)
+            if tech.weapon:
+                self.spa_attack += tech.weapon.spa_attack * number
+                self.spa_attack += tech.weapon.shield_attack * number
+                self.pla_attack += tech.weapon.pla_attack * number
+            structure += tech.structural * number
+            engine = max(engine, tech.propeller)
+
+        self.size = struct2size(structure)
+        self.poc = max(1, int(structure / 2))
+        self.velocity = 12 - self.size + engine
+        self.save()
