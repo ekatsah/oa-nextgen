@@ -55,6 +55,45 @@
       {% endfor %}
     </table>
 
+    <h1>Fleets</h1>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Ships</th>
+        <th>Feature</th>
+      </tr>
+      {% for fleet in player.fleets.all %}
+      <tr>
+        <td>{{ fleet.id }}</td>
+        <td>{{ fleet.name }}</td>
+        <td>
+          {{ fleet.pos_x }}:{{ fleet.pos_y }}
+          {% if fleet.pos_x != fleet.dest_x or fleet.pos_y != fleet.dest_y %}
+          -> {{ fleet.dest_x }}:{{ fleet.dest_y }}
+          {% endif %}
+        </td>
+        <td>
+          <ul>
+            {% for ships in fleet.ships %}
+            <li>
+              {{ ships.scheme.name }}: {{ ships.number }} ({{ ships.race}})
+            </li>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>
+          <ul>
+            {% for feature in fleet.features %}
+            <li>{{ feature.code }}: {{ feature.value }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
     <h1>Schemes</h1>
     <table>
       <tr>
@@ -76,6 +115,7 @@
             {% for compo in scheme.compos %}
             <li>{{ compo.techno.name }}: {{ compo.number }}</li>
             {% endfor %}
+          </ul>
         </td>
         <td>
           <ul>
