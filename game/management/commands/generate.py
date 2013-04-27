@@ -109,6 +109,6 @@ class Command(BaseCommand):
             for position in map(lambda p: p + 1, xrange(planet_count)):
                 size = randint(1, 4)
                 P(system=asset.system, asset=asset, position=position, 
-                  size=size, gravity=randint(0, 100), radiation=randint(0, 100),
+                  temperature=randint(0, 100), radiation=randint(0, 100),
                   structure=size * 20 + randint(0, 30), taxe=2, stability=100,
-                  ore=randint(0, 6))
+                  ore=randint(0, 6), size=size)
