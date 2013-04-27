@@ -8,3 +8,4 @@
 # your option) any later version.
 
 from .techno import TechnoTestCase
+from .planet import PlanetTestCase
