@@ -27,3 +27,6 @@ class Command(models.Model):
             args = ("None", -1, str(self.date), self.week)
 
         return "RawCom, player %s (%d), at %s on week %d" % args 
+
+    def __repr__(self):
+        return self.__str__()
