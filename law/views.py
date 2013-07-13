@@ -17,10 +17,12 @@ class OrderView(CreateView):
     template_name = 'order.html'
     success_url = '/order/'
 
+
 def all_order(request):
     orders = [ name for name in models.__dict__
                if isinstance(getattr(models, name), ModelBase) ] 
     return render(request, "order_list.html", {"orders": orders})
+
 
 def one_order(request, name):
     order = getattr(models, name)
