@@ -9,7 +9,7 @@
 
 from django.conf.urls import patterns, include, url
 from django.views.generic.detail import DetailView
-from law.views import all_order, one_order
+from law.views import all_order, one_order, orders_list
 from stock.models import Player
 
 urlpatterns = patterns('',
@@ -19,5 +19,6 @@ urlpatterns = patterns('',
         name='realm'),
 
     url(r'^order/$', all_order, name="all_order"),
+    url(r'^order/all/$', orders_list, name="orders_list"),
     url(r'^order/(?P<name>\w+)/$', one_order, name="one_order"),
 )

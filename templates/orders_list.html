@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>All orders</title>
+  </head>
+  <body>
+    <h1>All orders classed by weeks</h1>
+    {% for week, orders in orders.iteritems %}
+    <h2>Week {{ week }}</h2>
+    <ul>
+    {% for order in orders %}
+      <li>{{ order }}</li>
+    {% endfor %}
+    </ul>
+    {% endfor %}
+  </body>
+</html>

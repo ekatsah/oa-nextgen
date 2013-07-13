@@ -33,3 +33,22 @@ def one_order(request, name):
         model = order
 
     return (View.as_view())(request)
+
+
+def orders_list(request):
+    orders = [ getattr(models, name) for name in models.__dict__
+               if isinstance(getattr(models, name), ModelBase) ]
+
+    stop, week, orders_list = False, 0, {}
+    while not stop:
+        stop = True
+
+        orders_list[week] = []
+        for order in orders:
+            cmds = order.objects.filter(week=week)
+            orders_list[week].append(cmds)
+            if len(cmds) > 0:
+                cmds = False
+
+        week += 1
+    return render(request, "orders_list.html", {"orders": orders_list})
